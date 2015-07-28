@@ -10,6 +10,7 @@ import java.util.Date;
 public class HibernateTest {
 
     public static void main(String[] args) {
+        // adding user to database
         UserDetails user = new UserDetails();
         user.setUserId(1);
         user.setUserName("First User");
@@ -22,6 +23,14 @@ public class HibernateTest {
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
+        session.close();
+
+        // retrieving user from database
+        user = null;
+        session = factory.openSession();
+        session.beginTransaction();
+        user = session.get(UserDetails.class, 1);
+        System.out.println("User retrieved: " + user.getUserName());
     }
 
 }
