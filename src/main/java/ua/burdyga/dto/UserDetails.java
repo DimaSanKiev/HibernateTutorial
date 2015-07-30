@@ -7,6 +7,7 @@ import java.util.Date;
 @Table(name = "USER_DETAILS")
 public class UserDetails {
     @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
     @Temporal(TemporalType.DATE)
