@@ -1,6 +1,8 @@
 package ua.burdyga.dto;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER_DETAILS")
@@ -9,20 +11,23 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET_NAME")),
-            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY_NAME")),
-            @AttributeOverride(name = "state", column = @Column(name = "HOME_STATE_NAME")),
-            @AttributeOverride(name = "zipCode", column = @Column(name = "HOME_ZIP_NAME"))})
-    private Address homeAddress;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "OFFICE_STREET_NAME")),
-            @AttributeOverride(name = "city", column = @Column(name = "OFFICE_CITY_NAME")),
-            @AttributeOverride(name = "state", column = @Column(name = "OFFICE_STATE_NAME")),
-            @AttributeOverride(name = "zipCode", column = @Column(name = "OFFICE_ZIP_NAME"))})
-    private Address officeAddress;
+    @ElementCollection
+    private Set<Address> addressList = new HashSet<>();
+
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET_NAME")),
+//            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY_NAME")),
+//            @AttributeOverride(name = "state", column = @Column(name = "HOME_STATE_NAME")),
+//            @AttributeOverride(name = "zipCode", column = @Column(name = "HOME_ZIP_NAME"))})
+//    private Address homeAddress;
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "street", column = @Column(name = "OFFICE_STREET_NAME")),
+//            @AttributeOverride(name = "city", column = @Column(name = "OFFICE_CITY_NAME")),
+//            @AttributeOverride(name = "state", column = @Column(name = "OFFICE_STATE_NAME")),
+//            @AttributeOverride(name = "zipCode", column = @Column(name = "OFFICE_ZIP_NAME"))})
+//    private Address officeAddress;
 
     public int getUserId() {
         return userId;
@@ -40,19 +45,11 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
+    public Set<Address> getAddressList() {
+        return addressList;
     }
 
-    public void setHomeAddress(Address address) {
-        this.homeAddress = address;
-    }
-
-    public Address getOfficeAddress() {
-        return officeAddress;
-    }
-
-    public void setOfficeAddress(Address officeAddress) {
-        this.officeAddress = officeAddress;
+    public void setAddressList(Set<Address> addressList) {
+        this.addressList = addressList;
     }
 }

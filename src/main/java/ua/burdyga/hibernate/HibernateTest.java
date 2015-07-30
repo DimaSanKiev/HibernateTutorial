@@ -17,14 +17,14 @@ public class HibernateTest {
         homeAddr.setCity("Home City Name");
         homeAddr.setState("Home State Name");
         homeAddr.setZipCode("Home Zip");
-        user.setHomeAddress(homeAddr);
         Address officeAddr = new Address();
         officeAddr.setStreet("Office Street Name");
         officeAddr.setCity("Office City Name");
         officeAddr.setState("Office State Name");
         officeAddr.setZipCode("Office Zip");
-        user.setOfficeAddress(officeAddr);
 
+        user.getAddressList().add(homeAddr);
+        user.getAddressList().add(officeAddr);
 
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
