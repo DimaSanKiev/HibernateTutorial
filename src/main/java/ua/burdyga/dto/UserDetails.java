@@ -10,11 +10,8 @@ public class UserDetails {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
-    @Temporal(TemporalType.DATE)
-    private Date joinedDate;
-    private String address;
-    @Lob
-    private String description;
+    @Embedded
+    private Address address;
 
     public int getUserId() {
         return userId;
@@ -32,27 +29,11 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Date getJoinedDate() {
-        return joinedDate;
-    }
-
-    public void setJoinedDate(Date joinedDate) {
-        this.joinedDate = joinedDate;
-    }
-
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }
