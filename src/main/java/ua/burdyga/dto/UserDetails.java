@@ -1,17 +1,28 @@
 package ua.burdyga.dto;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "USER_DETAILS")
 public class UserDetails {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
     private String userName;
     @Embedded
-    private Address address;
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET_NAME")),
+            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY_NAME")),
+            @AttributeOverride(name = "state", column = @Column(name = "HOME_STATE_NAME")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "HOME_ZIP_NAME"))})
+    private Address homeAddress;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "OFFICE_STREET_NAME")),
+            @AttributeOverride(name = "city", column = @Column(name = "OFFICE_CITY_NAME")),
+            @AttributeOverride(name = "state", column = @Column(name = "OFFICE_STATE_NAME")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "OFFICE_ZIP_NAME"))})
+    private Address officeAddress;
 
     public int getUserId() {
         return userId;
@@ -29,11 +40,19 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setHomeAddress(Address address) {
+        this.homeAddress = address;
+    }
+
+    public Address getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(Address officeAddress) {
+        this.officeAddress = officeAddress;
     }
 }

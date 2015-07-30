@@ -12,12 +12,19 @@ public class HibernateTest {
         // adding user to database
         UserDetails user = new UserDetails();
         user.setUserName("First User");
-        Address addr = new Address();
-        addr.setStreet("Street Name");
-        addr.setCity("City Name");
-        addr.setState("State Name");
-        addr.setZipCode("Zip");
-        user.setAddress(addr);
+        Address homeAddr = new Address();
+        homeAddr.setStreet("Home Street Name");
+        homeAddr.setCity("Home City Name");
+        homeAddr.setState("Home State Name");
+        homeAddr.setZipCode("Home Zip");
+        user.setHomeAddress(homeAddr);
+        Address officeAddr = new Address();
+        officeAddr.setStreet("Office Street Name");
+        officeAddr.setCity("Office City Name");
+        officeAddr.setState("Office State Name");
+        officeAddr.setZipCode("Office Zip");
+        user.setOfficeAddress(officeAddr);
+
 
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
