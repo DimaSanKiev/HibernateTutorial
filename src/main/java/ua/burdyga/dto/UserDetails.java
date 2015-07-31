@@ -1,8 +1,12 @@
 package ua.burdyga.dto;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "USER_DETAILS")
@@ -10,24 +14,14 @@ public class UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userId;
-    private String userName;
-    @ElementCollection
-    private Set<Address> addressList = new HashSet<>();
 
-//    @Embedded
-//    @AttributeOverrides({
-//            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET_NAME")),
-//            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY_NAME")),
-//            @AttributeOverride(name = "state", column = @Column(name = "HOME_STATE_NAME")),
-//            @AttributeOverride(name = "zipCode", column = @Column(name = "HOME_ZIP_NAME"))})
-//    private Address homeAddress;
-//    @Embedded
-//    @AttributeOverrides({
-//            @AttributeOverride(name = "street", column = @Column(name = "OFFICE_STREET_NAME")),
-//            @AttributeOverride(name = "city", column = @Column(name = "OFFICE_CITY_NAME")),
-//            @AttributeOverride(name = "state", column = @Column(name = "OFFICE_STATE_NAME")),
-//            @AttributeOverride(name = "zipCode", column = @Column(name = "OFFICE_ZIP_NAME"))})
-//    private Address officeAddress;
+    private String userName;
+
+    @ElementCollection
+    @JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
+    @GenericGenerator(name = "hilo-gen", strategy = "hilo")
+    @CollectionId(columns = {@Column(name = "ADDRESS_ID")}, generator = "hilo-gen", type = @Type(type = "long"))
+    private Collection<Address> addressList = new ArrayList<>();
 
     public int getUserId() {
         return userId;
@@ -45,11 +39,11 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public Set<Address> getAddressList() {
+    public Collection<Address> getAddressList() {
         return addressList;
     }
 
-    public void setAddressList(Set<Address> addressList) {
+    public void setAddressList(Collection<Address> addressList) {
         this.addressList = addressList;
     }
 }
