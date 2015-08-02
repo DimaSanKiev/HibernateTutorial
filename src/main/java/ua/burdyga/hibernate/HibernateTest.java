@@ -33,12 +33,12 @@ public class HibernateTest {
         session.getTransaction().commit();
         session.close();
 
-        // retrieving user from database
-//        user = null;
-//        session = factory.openSession();
-//        session.beginTransaction();
-//        user = session.get(UserDetails.class, 1);
-//        System.out.println("User retrieved: " + user.getUserName());
+        user = null;
+        session = factory.openSession();
+        user = session.get(UserDetails.class, 1);
+        session.close();
+        System.out.println(user.getAddressList().size());
+
     }
 
 }
