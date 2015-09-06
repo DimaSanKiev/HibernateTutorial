@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ua.burdyga.dto.Address;
+import ua.burdyga.dto.Laptop;
 import ua.burdyga.dto.UserDetails;
 import ua.burdyga.dto.Vehicle;
 
@@ -27,6 +28,15 @@ public class HibernateTest {
         vehicle.setVehicleName("Car");
         user.setVehicle(vehicle);
 
+        Laptop laptop = new Laptop();
+        Laptop laptop2 = new Laptop();
+        laptop.setLaptopName("MacBookPro");
+        laptop2.setLaptopName("HP Envy");
+        user.getLaptops().add(laptop);
+        user.getLaptops().add(laptop2);
+        laptop.setUser(user);
+        laptop2.setUser(user);
+
         user.getAddressList().add(homeAddr);
         user.getAddressList().add(officeAddr);
 
@@ -35,6 +45,8 @@ public class HibernateTest {
         session.beginTransaction();
         session.save(user);
         session.save(vehicle);
+        session.save(laptop);
+        session.save(laptop2);
         session.getTransaction().commit();
         session.close();
 

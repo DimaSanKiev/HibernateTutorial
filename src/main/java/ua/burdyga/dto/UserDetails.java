@@ -3,6 +3,7 @@ package ua.burdyga.dto;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER_DETAILS")
@@ -17,12 +18,21 @@ public class UserDetails {
     @JoinColumn(name = "VEHICLE_ID")
     private Vehicle vehicle;
 
+    @OneToMany
+    @JoinTable(name = "USER_LAPOP", joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "LAPTOP_ID"))
+    private Collection<Laptop> laptops = new ArrayList<>();
+
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
     private Collection<Address> addressList = new ArrayList<>();
 
-    public int getUserId() {
-        return userId;
+    public Collection<Laptop> getLaptops() {
+        return laptops;
+    }
+
+    public void setLaptops(Collection<Laptop> laptops) {
+        this.laptops = laptops;
     }
 
     public Vehicle getVehicle() {
@@ -31,6 +41,10 @@ public class UserDetails {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public void setUserId(int userId) {
