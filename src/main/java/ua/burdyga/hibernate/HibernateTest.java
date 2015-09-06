@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ua.burdyga.dto.Address;
 import ua.burdyga.dto.UserDetails;
+import ua.burdyga.dto.Vehicle;
 
 public class HibernateTest {
 
@@ -22,6 +23,9 @@ public class HibernateTest {
         officeAddr.setCity("Office City Name");
         officeAddr.setState("Office State Name");
         officeAddr.setZipCode("Office Zip");
+        Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleName("Car");
+        user.setVehicle(vehicle);
 
         user.getAddressList().add(homeAddr);
         user.getAddressList().add(officeAddr);
@@ -30,6 +34,7 @@ public class HibernateTest {
         Session session = factory.openSession();
         session.beginTransaction();
         session.save(user);
+        session.save(vehicle);
         session.getTransaction().commit();
         session.close();
 
@@ -38,6 +43,7 @@ public class HibernateTest {
         user = session.get(UserDetails.class, 1);
         session.close();
         System.out.println(user.getAddressList().size());
+
 
     }
 

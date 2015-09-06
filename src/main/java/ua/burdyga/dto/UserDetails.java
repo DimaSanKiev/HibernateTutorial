@@ -13,12 +13,24 @@ public class UserDetails {
 
     private String userName;
 
+    @OneToOne
+    @JoinColumn(name = "VEHICLE_ID")
+    private Vehicle vehicle;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
     private Collection<Address> addressList = new ArrayList<>();
 
     public int getUserId() {
         return userId;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public void setUserId(int userId) {

@@ -29,6 +29,7 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="ua.burdyga.dto.UserDetails"/>
+        <mapping class="ua.burdyga.dto.Vehicle"/>
 
 
     </session-factory>
