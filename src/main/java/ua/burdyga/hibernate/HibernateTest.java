@@ -3,10 +3,7 @@ package ua.burdyga.hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import ua.burdyga.dto.Address;
-import ua.burdyga.dto.Laptop;
-import ua.burdyga.dto.UserDetails;
-import ua.burdyga.dto.Vehicle;
+import ua.burdyga.dto.*;
 
 public class HibernateTest {
 
@@ -37,6 +34,15 @@ public class HibernateTest {
         laptop.setUser(user);
         laptop2.setUser(user);
 
+        Device device = new Device();
+        Device device2 = new Device();
+        device.setDeviceName("SmartPhone");
+        device2.setDeviceName("Tablet");
+        user.getDevices().add(device);
+        user.getDevices().add(device2);
+        device.getUserList().add(user);
+        device2.getUserList().add(user);
+
         user.getAddressList().add(homeAddr);
         user.getAddressList().add(officeAddr);
 
@@ -47,6 +53,8 @@ public class HibernateTest {
         session.save(vehicle);
         session.save(laptop);
         session.save(laptop2);
+        session.save(device);
+        session.save(device2);
         session.getTransaction().commit();
         session.close();
 

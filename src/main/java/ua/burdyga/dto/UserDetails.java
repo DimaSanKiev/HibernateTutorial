@@ -19,13 +19,24 @@ public class UserDetails {
     private Vehicle vehicle;
 
     @OneToMany
-    @JoinTable(name = "USER_LAPOP", joinColumns = @JoinColumn(name = "USER_ID"),
+    @JoinTable(name = "USER_LAPTOP", joinColumns = @JoinColumn(name = "USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "LAPTOP_ID"))
     private Collection<Laptop> laptops = new ArrayList<>();
+
+    @ManyToMany
+    private Collection<Device> devices = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
     private Collection<Address> addressList = new ArrayList<>();
+
+    public Collection<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Collection<Device> devices) {
+        this.devices = devices;
+    }
 
     public Collection<Laptop> getLaptops() {
         return laptops;
