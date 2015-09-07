@@ -53,6 +53,7 @@ public class HibernateTest {
         user.getAddressList().add(homeAddr);
         user.getAddressList().add(officeAddr);
 
+
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -62,6 +63,15 @@ public class HibernateTest {
         session.save(car);
         session.save(laptop);
         session.save(laptop2);
+        // CRUD operations
+//        for (int i = 0; i < 10; i++) {
+//            UserDetails user1 = new UserDetails();
+//            user1.setUserName("User " + i);
+//            session.save(user1);
+//        }
+        UserDetails user1 = (UserDetails) session.get(UserDetails.class, 1);
+        user1.setUserName("Updated User");
+        session.update(user1);
         session.getTransaction().commit();
         session.close();
 
@@ -69,6 +79,8 @@ public class HibernateTest {
         session = factory.openSession();
         user = session.get(UserDetails.class, 1);
         session.close();
+
+        System.out.println("User name pulled up is: " + user1.getUserName());
         System.out.println(user.getAddressList().size());
 
     }
