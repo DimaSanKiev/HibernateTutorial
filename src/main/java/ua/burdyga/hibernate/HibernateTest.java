@@ -35,13 +35,13 @@ public class HibernateTest {
         laptop2.setUser(user);
 
         Device device = new Device();
-        Device device2 = new Device();
         device.setDeviceName("SmartPhone");
+        Device device2 = new Device();
         device2.setDeviceName("Tablet");
         user.getDevices().add(device);
         user.getDevices().add(device2);
-        device.getUserList().add(user);
-        device2.getUserList().add(user);
+//        device.setUser(user);
+//        device2.setUser(user);
 
         user.getAddressList().add(homeAddr);
         user.getAddressList().add(officeAddr);
@@ -49,12 +49,10 @@ public class HibernateTest {
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
         session.beginTransaction();
-        session.save(user);
+        session.persist(user);
         session.save(vehicle);
         session.save(laptop);
         session.save(laptop2);
-        session.save(device);
-        session.save(device2);
         session.getTransaction().commit();
         session.close();
 
@@ -63,7 +61,6 @@ public class HibernateTest {
         user = session.get(UserDetails.class, 1);
         session.close();
         System.out.println(user.getAddressList().size());
-
 
     }
 

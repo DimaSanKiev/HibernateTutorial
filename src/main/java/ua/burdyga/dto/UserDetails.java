@@ -23,7 +23,7 @@ public class UserDetails {
             inverseJoinColumns = @JoinColumn(name = "LAPTOP_ID"))
     private Collection<Laptop> laptops = new ArrayList<>();
 
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Collection<Device> devices = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)

@@ -1,11 +1,12 @@
 package ua.burdyga.dto;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.ArrayList;
-import java.util.Collection;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Device {
@@ -13,8 +14,9 @@ public class Device {
     @GeneratedValue
     private int deviceId;
     private String deviceName;
-    @ManyToMany(mappedBy = "devices")
-    private Collection<UserDetails> userList = new ArrayList<>();
+    @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    private UserDetails user;
 
     public int getDeviceId() {
         return deviceId;
@@ -32,11 +34,11 @@ public class Device {
         this.deviceName = deviceName;
     }
 
-    public Collection<UserDetails> getUserList() {
-        return userList;
+    public UserDetails getUser() {
+        return user;
     }
 
-    public void setUserList(Collection<UserDetails> userList) {
-        this.userList = userList;
+    public void setUser(UserDetails user) {
+        this.user = user;
     }
 }
