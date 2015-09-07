@@ -32,6 +32,8 @@
         <mapping class="ua.burdyga.dto.Vehicle"/>
         <mapping class="ua.burdyga.dto.Laptop"/>
         <mapping class="ua.burdyga.dto.Device"/>
+        <mapping class="ua.burdyga.dto.TwoWheeler"/>
+        <mapping class="ua.burdyga.dto.FourWheeler"/>
 
 
     </session-factory>

@@ -23,7 +23,14 @@ public class HibernateTest {
         officeAddr.setZipCode("Office Zip");
         Vehicle vehicle = new Vehicle();
         vehicle.setVehicleName("Car");
-        user.setVehicle(vehicle);
+
+        // implementing inheritance
+        TwoWheeler bike = new TwoWheeler();
+        bike.setVehicleName("Bike");
+        bike.setSteeringHandle("Bike Steering Handle");
+        FourWheeler car = new FourWheeler();
+        car.setVehicleName("Porsche");
+        car.setSteeringWheel("Porsche Steering Wheel");
 
         Laptop laptop = new Laptop();
         Laptop laptop2 = new Laptop();
@@ -51,6 +58,8 @@ public class HibernateTest {
         session.beginTransaction();
         session.persist(user);
         session.save(vehicle);
+        session.save(bike);
+        session.save(car);
         session.save(laptop);
         session.save(laptop2);
         session.getTransaction().commit();
